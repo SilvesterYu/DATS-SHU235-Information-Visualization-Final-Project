@@ -7,7 +7,8 @@ Link to Final Proposal LaTeX Document: https://www.overleaf.com/project/62544bef
 
 ## Data
 World Happiness Dataset 2015-2022
-https://www.kaggle.com/code/avikumart/whr21-data-analysis-and-visualizations
+https://www.kaggle.com/datasets/mathurinache/world-happiness-report
+
 
 
 
