@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>world map using react</title>
+    <script src="https://d3js.org/d3.v6.min.js"></script>
+    <script src="https://d3js.org/d3-path.v2.min.js"></script>
+    <script src="https://d3js.org/d3-shape.v2.min.js"></script>
+    <script src="https://d3js.org/topojson.v1.min.js"></script>
+    <script src="https://d3js.org/d3-array.v2.min.js"></script>
+    <script src="https://d3js.org/d3-geo.v2.min.js"></script>
+    <script src="https://d3js.org/d3-geo-projection.v3.min.js"></script>
+    <script src="https://unpkg.com/react/umd/react.development.js"></script>
+    <script src="https://unpkg.com/react-dom/umd/react-dom.development.js"></script>
+    <script src="https://unpkg.com/babel-standalone/babel.js"></script>
+    <link rel="stylesheet" href="styles.css" > 
+</head>
+<body>
+    <div id="root"></div>
+    <script type="text/babel">
+    const WIDTH = 1000;
+    const HEIGHT = 600;
+    const margin = { top: 20, right: 40, bottom: 20, left: 40 };
+    const csvUrl = "2015.json";
+    const mapUrl = "https://unpkg.com/world-atlas@2.0.2/countries-110m.json";
+
+    function useMap(jsonPath) {
+        const [data, setData] = React.useState(null);
+        React.useEffect(() => {
+            d3.json(jsonPath).then(topoJsonData => {
+                setData(topojson.feature(topoJsonData, topoJsonData.objects.countries))});
+        }, []);
+        return data;
+    }
+    function useData(csvPath){
+        const [dataAll, setData] = React.useState(null);
+        React.useEffect(() => {
+            d3.csv(csvPath).then(data => {
+                data.forEach(d => {
+                    d.gdp_md_est = +d.Family;
+                    d.pop_est = +d.Freedom;
+                });
+                setData(data);
+            });
+        }, []);
+        console.log(dataAll);
+        return dataAll;
+    }
+
+    function WorldMap(props) {
+        const { map, data, colormap } = props;
+        const projection = d3.geoEqualEarth();
+        const path = d3.geoPath(projection);
+        return <g>
+            <path className={'sphere'} d={path({type: 'Sphere'})} />
+            { map.features.map( feature => {
+                const country = data.filter( d => d.ountry === feature.properties.name);
+                if (country[0]){
+                    return <path key={feature.properties.name+"boundary"} className={"boundary"} 
+                d={path(feature)}
+                style={{fill:colormap(country[0].income_grp)}}/>}
+               
+                else {
+                    return <path key={feature.properties.name+"boundary"} className={"boundary"} 
+                d={path(feature)}/>} 
+            })}
+        </g>
+    }
+
+
+    function Legend(props){
+        const {x, y, colormap, incomeLevels} = props;
+        const w = 15;
+        const h = 20;
+        return <g transform = {`translate(${x}, ${y})`}>
+            {incomeLevels.map( (d, idx) => {
+                return <rect key={idx+"legend"} x={0} y={idx*h} width={w} height={h} 
+                style={{fill:colormap(idx)}} />
+            } )}
+            {incomeLevels.map((d, idx) => {
+                return <text key={idx+"legendText"} x={20} y={idx*h+15}>
+                    {d}
+                </text>
+            } )}
+        </g>
+    }
+
+    function Geomap(props) {
+        const rawData  = useData(csvUrl);
+        const map = useMap(mapUrl);
+        if (!map || !rawData) {
+                return <pre>Loading...</pre>;
+            };
+        const income_grp = rawData.map(d => d.income_grp);
+        const incomeLevels = income_grp.filter((a, b) => income_grp.indexOf(a) === b);
+        const colormap =  d3.scaleOrdinal(d3.schemeOranges[incomeLevels.length])
+            .domain(incomeLevels);
+        console.log(incomeLevels);
+        return <svg width={WIDTH} height={HEIGHT}>
+            <WorldMap map={map} data={rawData} colormap={colormap}/>
+            <Legend x={50} y={HEIGHT/2} colormap={colormap} incomeLevels={incomeLevels} />
+            </svg>
+    }
+    
+    ReactDOM.render( <Geomap />, document.getElementById('root'));
+    </script>
+    </body>
+    </html>
