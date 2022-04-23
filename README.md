@@ -9,6 +9,7 @@ Link to Final Proposal LaTeX Document: https://www.overleaf.com/project/62544bef
 World Happiness Dataset 2015-2022
 https://www.kaggle.com/datasets/mathurinache/world-happiness-report
 
+Group Members: Ming Xian, Silvey Yu, Mingqian Zheng (by alphabetical order)
 
 
 
