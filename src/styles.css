@@ -1,0 +1,22 @@
+body {
+    
+    font-family: "Poppins", sans-serif;
+}
+
+.land {
+    fill:rgb(141, 155, 136);
+} 
+.interiors {
+    fill: none;
+    stroke: #C0C0BB;
+    stroke-width: 1px;
+} 
+.boundary {
+    fill: #9a9e9e;
+    stroke: #C0C0BB;
+}
+
+.sphere {
+    fill:rgb(150, 209, 243);
+}
+
