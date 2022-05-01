@@ -6,7 +6,6 @@ import "./styles.css";
 import { json, csv, scaleOrdinal, schemeOranges } from "d3";
 import * as topojson from "topojson-client";
 import { feature } from "topojson-client";
-import d3 from "d3";
 
 const mapUrl = "https://cdn.jsdelivr.net/npm/world-atlas@2.0.2/countries-50m.json";
 const csvUrl = "https://raw.githubusercontent.com/SilvesterYu/All_kinds_of_scratch/main/2015.csv";
@@ -52,9 +51,8 @@ function Geomap() {
     const income_grp = rawData.map(d => d.happiness_level);
     const incomeLevels = income_grp.filter((a, b) => income_grp.indexOf(a) === b).sort().reverse();
     console.log(incomeLevels);
-    const colormap = d3.scaleThreshold()
-    .domain([3, 4, 5, 6, 7, 8, 9])
-    .range(["none", "blue", "lightblue", "grey", "white", "grey", "pink", "red"]);
+    const colormap = scaleOrdinal(schemeOranges[incomeLevels.length])
+            .domain(incomeLevels);
 
     return <svg width={WIDTH} height={HEIGHT}>
         <g>
