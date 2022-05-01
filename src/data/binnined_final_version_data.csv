@@ -1,4 +1,4 @@
-,country,year,region,happiness_rank,happiness_score,economy_GDP_per_capita,family,health_life_expectancy,freedom,trust_government_corruption,generosity,dystopia_residual,group
+,country,year,region,happiness_rank,happiness_score,economy_GDP_per_capita,family,health_life_expectancy,freedom,trust_government_corruption,generosity,dystopia_residual,happiness_level
 0,Switzerland,2015,Western Europe,1,7.587,1.3965,1.3495,0.9414,0.6656,0.4198,0.2968,2.5174,1. x>7
 1,Iceland,2015,Western Europe,2,7.561,1.3023,1.4022,0.9478,0.6288,0.1415,0.4363,2.702,1. x>7
 2,Denmark,2015,Western Europe,3,7.527,1.3255,1.3606,0.8746,0.6494,0.4836,0.3414,2.492,1. x>7
