@@ -86,16 +86,31 @@ function Geomap() {
             <input key="yearText" type="text" value={YEAR[year]} readOnly/>
         </div>
 
+        
         <div>
-            <svg width={WIDTH} height={HEIGHT}>
-                <g>
-                    <WorldMap map={map} colormap={colormap} projection={"geoEqualEarth"} width={width} height={height}
-                    data={data} hoveredLegend={hoveredLegend}/> 
-                    <Legend x={50} y={HEIGHT/2} colormap={colormap} incomeLevels={incomeLevels} 
-                    hoveredLegend={hoveredLegend} setHoveredLegend={setHoveredLegend}/>
-                </g>
-            </svg>
-        </div>
+        <svg width={WIDTH / 2} height={HEIGHT / 2} viewBox={"0 0 1000 600"}>
+          <g>
+            <WorldMap
+              map={map}
+              colormap={colormap}
+              projection={"geoEqualEarth"}
+              width={width}
+              height={height}
+              data={data}
+              hoveredLegend={hoveredLegend}
+            />
+            <Legend
+              x={50}
+              y={HEIGHT / 2}
+              colormap={colormap}
+              incomeLevels={incomeLevels}
+              hoveredLegend={hoveredLegend}
+              setHoveredLegend={setHoveredLegend}
+            />
+          </g>
+        </svg>
+      </div>
+
         
     </div>
     

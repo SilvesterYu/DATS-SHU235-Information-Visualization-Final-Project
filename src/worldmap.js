@@ -3,6 +3,7 @@ import { geoPath, geoEqualEarth, geoMercator } from "d3-geo";
 // import { feature } from "topojson-client";
 
 export function WorldMap(props){
+    console.log("drawing worldmap...");
     const {map, colormap, projection, width, height, data, hoveredLegend} = props;
     let path = geoPath(geoEqualEarth()); // the default projection
     if (projection==="geoEqualEath"){
