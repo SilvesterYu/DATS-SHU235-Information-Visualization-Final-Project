@@ -43,6 +43,8 @@ function Geomap() {
     if (!map || !rawData) {
             return <pre>Loading...</pre>;
         };
+    // -- checking raw data -- //
+    console.log("this is raw data");
     console.log(rawData, map);
     const width = WIDTH - margin.left - margin.right;
     const height = HEIGHT - margin.top - margin.bottom;
