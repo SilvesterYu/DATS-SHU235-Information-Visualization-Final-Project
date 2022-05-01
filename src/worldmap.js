@@ -1,5 +1,5 @@
 import React from "react";
-import { geoPath, geoEqualEarth, geoMercator } from "d3-geo";
+import { geoPath, geoEqualEarth, geoMercator, geoIdentity } from "d3-geo";
 // import { feature } from "topojson-client";
 
 export function WorldMap(props){
@@ -12,6 +12,10 @@ export function WorldMap(props){
     if (projection==="geoMercator"){
         path = geoPath(geoMercator().fitSize([width, height], map));
     }
+    if (projection==="geoIdentity"){
+        path = geoPath(geoIdentity().fitSize([width, height], map));
+    }
+
     // console.log(path({type:"Sphere"}));
     // -- use income level to filter out the data that belongs to this income level: filter the data with income level the same as the selected legend -- //
     const filteredData = data.filter(d => d.happiness_level === hoveredLegend);

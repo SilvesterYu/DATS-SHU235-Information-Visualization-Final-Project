@@ -4,6 +4,7 @@ import { WorldMap } from "./worldmap";
 import { Legend } from "./legend";
 import "./styles.css";
 import { json, csv, scaleOrdinal, schemeOranges } from "d3";
+//import { LineChart, MultipleLineChart } from './lineChart';
 import * as topojson from "topojson-client";
 import { feature } from "topojson-client";
 
@@ -88,7 +89,7 @@ function Geomap() {
 
         
         <div>
-        <svg width={WIDTH / 2} height={HEIGHT / 2} viewBox={"0 0 1000 600"}>
+        <svg width={WIDTH*0.7} height={HEIGHT*0.7} viewBox={"0 0 1000 600"}>
           <g>
             <WorldMap
               map={map}
@@ -107,9 +108,13 @@ function Geomap() {
               hoveredLegend={hoveredLegend}
               setHoveredLegend={setHoveredLegend}
             />
+
+
           </g>
         </svg>
       </div>
+
+
 
         
     </div>
