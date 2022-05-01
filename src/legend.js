@@ -1,6 +1,6 @@
 import React from "react";
 
-export function Legend(props) {
+export function LegendBase(props) {
     const {x, y, colormap, incomeLevels, hoveredLegend, setHoveredLegend} = props;
         const w = 15;
         const h = 20;
