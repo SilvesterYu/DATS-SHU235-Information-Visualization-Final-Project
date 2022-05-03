@@ -36,9 +36,9 @@ function BarChart(props) {
         (d) => d.happiness_rank <= selectedInt
     ); // Todo: apply string methods to remove spaces
 
-
-
-    const xScale = scaleBand().range([0, width]).domain(map(filteredCountry, d => d.happiness_score));
+    console.log("------");
+    console.log(filteredCountry);
+    const xScale = scaleBand().range([0, width]).domain(map(filteredCountry, d => d.country+d.year));
     const yScale = scaleLinear().range([height, height * 0.1]).domain([0, max(filteredCountry, d => d.happiness_score)]).nice();
 
     if (selectedInt >= 1) {
@@ -61,7 +61,7 @@ function BarChart(props) {
 
                 {filteredCountry.map(d => {
                     return (
-                        <rect stroke={"black"} key={d.year + "_" + d.country} x={xScale(d.happiness_score)} y={yScale(d.happiness_score)}
+                        <rect stroke={"black"} key={d.country+d.year} x={xScale(d.country+d.year)} y={yScale(d.happiness_score)}
                             height={height - yScale(d.happiness_score)} fill={'#7b1fa2'} width={xScale.bandwidth()}
                             onMouseEnter={(event) => mouseEnter(d, event)} onMouseOut={(event) => mouseOut(event)}></rect>
                     )
