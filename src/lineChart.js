@@ -498,7 +498,7 @@ export function MultipleLineChart(props) {
 
     // Margin
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
-    const width = 600;
+    const width = 300;
     const height = 300;
     // Instantiate d3
     const svg = d3
@@ -587,11 +587,11 @@ export function MultipleLineChart(props) {
     for (let i = 0; i < dataProcessed.length; i++) {
       var currentColor = getColor();
       legend_text +=
-        '<div style="color:' +
+        '<span style="color:' +
         currentColor +
         '">' +
         dataProcessed[i][0].region +
-        "</div>";
+        "</span>&nbsp;|&nbsp;";
     }
     // Add Legend
     var legend = d3
@@ -601,10 +601,7 @@ export function MultipleLineChart(props) {
       .style("background-color", "#ffffff")
       .style("border", "1px solid #000000")
       .style("padding", "10px")
-      .style("position", "absolute")
       .style("font-size", "12px")
-      .style("bottom", 100 + "px")
-      .style("left", width + 80 + "px")
       .html(function (d) {
         return legend_text;
       });
