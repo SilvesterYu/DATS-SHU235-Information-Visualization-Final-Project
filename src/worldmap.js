@@ -31,7 +31,13 @@ export function WorldMap(props){
                 if (country[0]){
                     return <path key={feature.properties.name+"boundary"} className={"boundary"} 
                 d={path(feature)} opacity={opacity}
-                style={{fill:colormap(country[0].happiness_level)}}/>}
+                // -- ordinal color scale -- //
+                style={{fill:colormap(country[0].happiness_level)}}
+                // -- continuous color scale -- //
+                //style={{fill:colormap(country[0].happiness_score)}}
+                />
+            }
+
                 else {
                     return <path key={feature.properties.name+"boundary"} className={"boundary"} 
                 d={path(feature)} opacity={opacity}/>} 
@@ -50,7 +56,7 @@ export function WorldMap(props){
                         const country = data.filter( d => d.country === feature.properties.name);
                         if (!country[0]) {
                             return <path key={feature.properties.name+"boundary"} className={"boundary"} 
-                            d={path(feature)} style={{fill:"blue"}}/>
+                            d={path(feature)} style={{fill:"green"}}/>
                         }
                     }
                        return <g key={feature.properties.name+"boundary"}></g> 

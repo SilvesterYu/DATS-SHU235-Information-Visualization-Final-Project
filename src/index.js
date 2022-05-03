@@ -3,10 +3,15 @@ import ReactDOM from "react-dom";
 import { WorldMap } from "./worldmap";
 import { LegendBase } from "./legend";
 import "./styles.css";
-import { json, csv, scaleOrdinal, schemeOranges } from "d3";
-//import { LineChart, MultipleLineChart } from './lineChart';
+// -- can experiment with different color schemes -- //
+import { json, csv, scale, scaleSequential, interpolateOranges, interpolatePurples, schemeReds, schemePiYG, schemePurples, scaleOrdinal, schemeOranges, schemeBrBG, schemeBlues, schemeOrRd, schemePaired, schemeGreens, schemeCategory10, schemePRGn, schemeSpectral, schemePastel2 } from "d3";
+import { MultipleLineChart } from './lineChart';
 import * as topojson from "topojson-client";
 import { feature } from "topojson-client";
+// -- dropdown menu -- //
+import { Dropdown, Selection } from 'react-dropdown-now';
+import 'react-dropdown-now/style.css';
+
 
 // Line Chart Data
 import {
@@ -189,9 +194,17 @@ function Geomap() {
     .sort()
     .reverse();
   console.log(incomeLevels);
-  const colormap = scaleOrdinal(schemeOranges[incomeLevels.length]).domain(
+
+  // -- ordinal color scale -- //
+  const colormap = scaleOrdinal(schemePurples[incomeLevels.length]).domain(
     incomeLevels
   );
+
+  // -- continuous color scale -- //
+  /*
+  const colormap = scaleSequential().domain([2,8])
+  .interpolator(interpolateOranges);
+*/
 
   return (
     <div>
@@ -207,9 +220,31 @@ function Geomap() {
         />
         <input key="yearText" type="text" value={YEAR[year]} readOnly />
       </div>
+      <div
+        id = "dropdownbar"
+        style={{
+          width: "15%",
+        }}
+      >
+      <g>
+          <Dropdown
+            placeholder="Select an option"
+            className="my-className"
+            options={['one', 'two', 'three']}
+            value="one"
+            onChange={(d) => Select(d)}
+            onSelect={(value) => console.log('selected!', value)} // always fires once a selection happens even if there is no change
+            onClose={(closedBySelection) => console.log('closedBySelection?:', closedBySelection)}
+            onOpen={() => console.log('open!')}
+          />
+</g>
+      </div>
+
+     
 
       <div>
-        <svg width={WIDTH * 0.7} height={HEIGHT * 0.7} viewBox={"0 0 1000 600"}>
+        {/* // -- adjust the width and height of the map here -- // */ }
+        <svg width={WIDTH * 0.9} height={HEIGHT * 0.9} viewBox={"0 0 1000 600"}>
           <g>
             <WorldMap
               map={map}
@@ -229,56 +264,15 @@ function Geomap() {
               setHoveredLegend={setHoveredLegend}
             />
           </g>
+
+          
+          
         </svg>
       </div>
 
-      {/* Line Chart Begins */}
-      <h1>{year}</h1>
-      <LineChart
-        width={500}
-        height={300}
-        data={dataChart}
-        margin={{
-          top: 5,
-          right: 30,
-          left: 20,
-          bottom: 5,
-        }}
-      >
-        <CartesianGrid strokeDasharray="3 3" />
-        <XAxis dataKey="Year" />
-        <YAxis />
-        <Tooltip />
-        <Legend />
-        <Line
-          type="monotone"
-          dataKey="Australia and New Zealand"
-          stroke="#e53935"
-        />
-        <Line
-          type="monotone"
-          dataKey="Central and Eastern Europe"
-          stroke="#43a047"
-        />
-        <Line type="monotone" dataKey="Eastern Asia" stroke="#f57c00" />
-        <Line
-          type="monotone"
-          dataKey="Latin America and Caribbean"
-          stroke="#1565c0"
-        />
-        <Line
-          type="monotone"
-          dataKey="Middle East and Northern Africa"
-          stroke="#f57c00"
-        />
-        <Line type="monotone" dataKey="North America" stroke="#6a1b9a" />
-        <Line type="monotone" dataKey="Southeastern Asia" stroke="#00796b" />
-        <Line type="monotone" dataKey="Southern Asia" stroke="#ff3d00" />
-        <Line type="monotone" dataKey="Sub-Saharan Africa" stroke="#455a64" />
-        <Line type="monotone" dataKey="Western Europe" stroke="#6d4c41" />
-      </LineChart>
-      {/* Line chart ends */}
+      
 
+      <MultipleLineChart></MultipleLineChart>
       
     </div>
   );
