@@ -62,7 +62,7 @@ export function WorldMap(props) {
             return (
               <path
                 key={feature.properties.name + "boundary"}
-                className={"boundary"}
+                className={"boundaryNone"}
                 d={path(feature)}
                 opacity={opacity}
               />

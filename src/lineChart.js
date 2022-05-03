@@ -448,8 +448,9 @@ export function MultipleLineChart(props) {
   // Function below is for all mouse interactions
   function MouseDown(event, regionData, regionID, tooltip) {
     const regionIDProcessed = regionID.replace(/ /g, "_");
-    // allLinesAndPoints
-    console.log(regionIDProcessed);
+    // Passing the current region back to parent component
+    props.func(regionIDProcessed);
+    // console.log(regionIDProcessed);
     for (let i = 0; i < allLinesAndPoints.length; i++) {
       // The idea is to traverse through all lines and points on the graph, and only show their opacity to full when they include the name of the region
       const region = allLinesAndPoints[i];
@@ -483,12 +484,15 @@ export function MultipleLineChart(props) {
 
   function MouseOut(regionID, tooltip) {
     // Reset the visibility of all lines and points
+    props.func("None");
     for (let i = 0; i < allLinesAndPoints.length; i++) {
       d3.select(allLinesAndPoints[i]).style("opacity", 1.0);
     }
     // Hide tooltip on mouseout
     tooltip.style("visibility", "hidden");
   }
+
+  // Pass back data to parent component, to highlight the map
 
   // Function below do the processing of raw JSON data and renders the final graph
   function drawChart(currentRegion) {
@@ -681,9 +685,6 @@ export function MultipleLineChart(props) {
     // This is for dynamic selection based on mouse pointer on map region
     var linetoSelect = "";
     if (currentRegion != null && currentRegion != "") {
-      console.log(
-        "Dealing with " + currentRegion.split("--")[1].replace("_", " ")
-      );
       linetoSelect = currentRegion.split("--")[1].replace("_", " ");
     }
   }
