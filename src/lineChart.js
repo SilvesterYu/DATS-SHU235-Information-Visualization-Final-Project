@@ -416,9 +416,26 @@ const dataChart = [
 var dataProcessed = [];
 
 export function MultipleLineChart(props) {
+  const { currentRegion } = props;
+
   useEffect(() => {
-    drawChart();
-  }, [dataChart]);
+    // Draw lines based on whether a region is selected on map
+    drawChart(currentRegion);
+
+    if (currentRegion != null && currentRegion != "") {
+      // Conditional Render based on selection
+      const regionIDProcessed = currentRegion.split("--")[1];
+      for (let i = 0; i < allLinesAndPoints.length; i++) {
+        const region = allLinesAndPoints[i];
+        let result = region.includes(regionIDProcessed);
+        if (result == false) {
+          d3.select(allLinesAndPoints[i]).style("opacity", faintOpacity);
+        } else {
+          d3.select(allLinesAndPoints[i]).style("opacity", 1.0);
+        }
+      }
+    }
+  }, [dataChart, currentRegion]);
 
   // Node ID Generator, please don't touch the following
   let node_id = 0;
@@ -474,7 +491,7 @@ export function MultipleLineChart(props) {
   }
 
   // Function below do the processing of raw JSON data and renders the final graph
-  function drawChart() {
+  function drawChart(currentRegion) {
     // Process the data (split into smaller json, categorized by regions)
     for (let index = 0; index < regionNames.length; index++) {
       // Allocate a sub array, manual resizing
@@ -500,6 +517,8 @@ export function MultipleLineChart(props) {
     const margin = { top: 50, right: 50, bottom: 50, left: 50 };
     const width = 300;
     const height = 300;
+    // Remove old chart
+    d3.select("#container").selectAll("*").remove();
     // Instantiate d3
     const svg = d3
       .select("#container")
@@ -607,6 +626,7 @@ export function MultipleLineChart(props) {
       });
     // Reset Color Index (IMPORTANT)
     color_index = 0;
+
     // Append Lines according to regions
     for (let i = 0; i < dataProcessed.length; i++) {
       var currentColor = getColor();
@@ -657,6 +677,24 @@ export function MultipleLineChart(props) {
         .attr("stroke", "#000000")
         .attr("stroke-width", 1);
     }
+
+    // This is for dynamic selection based on mouse pointer on map region
+    var linetoSelect = "";
+    if (currentRegion != null && currentRegion != "") {
+      console.log(
+        "Dealing with " + currentRegion.split("--")[1].replace("_", " ")
+      );
+      linetoSelect = currentRegion.split("--")[1].replace("_", " ");
+    }
   }
-  return <div id="container" />;
+  return (
+    <div>
+      <div>
+        {currentRegion
+          ? currentRegion.replace(/_/g, " ")
+          : "No Region Selected"}
+      </div>
+      <div id="container" />
+    </div>
+  );
 }

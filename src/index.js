@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { WorldMap } from "./worldmap";
 import { LegendBase } from "./legend";
@@ -72,7 +72,55 @@ function useData(csvPath) {
   return dataAll;
 }
 
+// To keep track of map <-> Graph interactivity
+var all_country_ID = [];
+
 function Geomap() {
+  const [selectedregion, setSelectedregion] = React.useState(null);
+  // Process country region highlighting
+  useEffect(() => {
+    all_country_ID = [];
+    var countryBoundaries = document.getElementsByClassName("boundary");
+    if (countryBoundaries[0]) {
+      for (var i = 0; i < countryBoundaries.length; i++) {
+        if (
+          countryBoundaries[i].id != undefined &&
+          countryBoundaries[i].id != ""
+        ) {
+          all_country_ID.push(countryBoundaries[i].id);
+        }
+      }
+      // Add event listeners
+      for (var i = 0; i < countryBoundaries.length; i++) {
+        countryBoundaries[i].addEventListener("mouseover", function () {
+          setSelectedregion(event.target.id);
+          // Process the highlight
+          if (all_country_ID[0]) {
+            for (let i = 0; i < all_country_ID.length; i++) {
+              if (all_country_ID[i] == event.target.id) {
+                document.getElementById(event.target.id).style.opacity = "1.0";
+                console.log(selectedregion);
+              } else {
+                document.getElementById(all_country_ID[i]).style.opacity =
+                  "0.5";
+              }
+            }
+          }
+          // Process Graph highlight
+        });
+        countryBoundaries[i].addEventListener("mouseout", function () {
+          setSelectedregion("");
+          //  Reset Opacity
+          if (all_country_ID[0]) {
+            for (let i = 0; i < all_country_ID.length; i++) {
+              document.getElementById(all_country_ID[i]).style.opacity = "1.0";
+            }
+          }
+        });
+      }
+    }
+  });
+
   const [hoveredLegend, setHoveredLegend] = React.useState(null);
   const [year, setYear] = React.useState("3");
   // -- dropdown menu -- //
@@ -144,7 +192,15 @@ function Geomap() {
           <Dropdown
             placeholder="select filter"
             className="dropDown"
-            options={["none", "top 5", "top 10", "top 20", "top 30", "top 40", "top 50"]}
+            options={[
+              "none",
+              "top 5",
+              "top 10",
+              "top 20",
+              "top 30",
+              "top 40",
+              "top 50",
+            ]}
             value=" "
             onChange={(d) => Select(d)}
             onSelect={(d) => Select(d)} // always fires once a selection happens even if there is no change
@@ -187,7 +243,7 @@ function Geomap() {
       </div>
       {/* Column Right */}
       <div className="column2" style={{ backgroundColor: "#fff" }}>
-        <MultipleLineChart></MultipleLineChart>
+        <MultipleLineChart currentRegion={selectedregion}></MultipleLineChart>
       </div>
     </div>
   );
