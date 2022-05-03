@@ -74,6 +74,8 @@ function useData(csvPath) {
 function Geomap() {
   const [hoveredLegend, setHoveredLegend] = React.useState(null);
   const [year, setYear] = React.useState("3");
+  // -- dropdown menu -- //
+  const [selectedRank, setSelectedRank] = React.useState(" ");
   const WIDTH = 1000;
   const HEIGHT = 600;
   const margin = { left: 50, right: 50, top: 50, bottom: 50 };
@@ -83,23 +85,19 @@ function Geomap() {
     return <pre>Loading...</pre>;
   }
 
-  // -- checking data from all years -- //
-  console.log("this is raw data");
-  console.log(rawData);
+  // -- dropdown menu -- //
+  const Select = (d) => {
+    setSelectedRank(d);
+  };
 
   const YEAR = [2015, 2016, 2017, 2018, 2019, 2020, 2021];
   const changeHandler = (event) => {
     setYear(event.target.value);
   };
-  // -- check year -- //
-  console.log("this is year");
-  console.log(year);
+
   const data = rawData.filter((d) => {
     return d.year === YEAR[year];
   });
-  // -- checking yearly data -- //
-  console.log("this is yearly data");
-  console.log(data);
 
   const width = WIDTH - margin.left - margin.right;
   const height = HEIGHT - margin.top - margin.bottom;
@@ -108,7 +106,6 @@ function Geomap() {
     .filter((a, b) => income_grp.indexOf(a) === b)
     .sort()
     .reverse();
-  console.log(incomeLevels);
 
   // -- ordinal color scale -- //
   const colormap = scaleOrdinal(schemePurples[incomeLevels.length]).domain(
@@ -140,16 +137,16 @@ function Geomap() {
         <div
           id="dropdownbar"
           style={{
-            width: "15%",
+            width: "20%",
           }}
         >
           <Dropdown
-            placeholder="Select an option"
-            className="my-className"
-            options={["one", "two", "three"]}
-            value="one"
+            placeholder="select filter"
+            className="dropDown"
+            options={["none", "top 5", "top 10", "top 20", "top 50"]}
+            value=" "
             onChange={(d) => Select(d)}
-            onSelect={(value) => console.log("selected!", value)} // always fires once a selection happens even if there is no change
+            onSelect={(d) => Select(d)} // always fires once a selection happens even if there is no change
             onClose={(closedBySelection) =>
               console.log("closedBySelection?:", closedBySelection)
             }
@@ -173,6 +170,7 @@ function Geomap() {
                 height={height}
                 data={data}
                 hoveredLegend={hoveredLegend}
+                selectedRank={selectedRank}
               />
               <LegendBase
                 x={50}
