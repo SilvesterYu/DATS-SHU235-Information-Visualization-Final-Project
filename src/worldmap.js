@@ -17,14 +17,13 @@ export function WorldMap(props){
     if(selectedRank.label){
         selectedInt = parseInt(selectedRank.label.split(" ")[1]);
     }
-   
-
     // console.log(path({type:"Sphere"}));
     // -- use income level to filter out the data that belongs to this income level: filter the data with income level the same as the selected legend -- //
     const filteredData = data.filter(d => d.happiness_level === hoveredLegend);
     // -- control the opacity by hover legend -- //
     const opacity = hoveredLegend ? 0.5 : 1;
-    if (selectedRank.label === "none") {
+
+    if (!selectedRank.label || selectedRank.label === "none") {
     return <g>
             {/* <path className={'sphere'} d={path({type: 'Sphere'})} /> */}
             { map.features.map( feature => {
@@ -38,7 +37,6 @@ export function WorldMap(props){
                 //style={{fill:colormap(country[0].happiness_score)}}
                 />
             }
-
                 else {
                     return <path key={feature.properties.name+"boundary"} className={"boundary"} 
                 d={path(feature)} opacity={opacity}/>} 
@@ -46,7 +44,6 @@ export function WorldMap(props){
             )}
             {map.features.map( feature => {
                 const country = filteredData.filter( d => d.country === feature.properties.name);
-                console.log("~~~~~~~");
                 if (country[0]){
                     {/* console.log(country); */}
                     return <path key={feature.properties.name+"boundary"} className={"boundary"} 
@@ -70,18 +67,22 @@ export function WorldMap(props){
             { map.features.map( feature => {
                 const country = data.filter( d => d.country === feature.properties.name); // Todo: apply string methods to remove spaces
                 if (country[0]){
+                    {/* // -- filter out the top X countries -- // */}
                     if (country[0].happiness_rank <= selectedInt) {
                         return <path key={feature.properties.name+"boundary"} className={"boundary"} 
-                
                 d={path(feature)} opacity={opacity}
                 // -- ordinal color scale -- //
                 style={{fill:colormap(country[0].happiness_level)}}
                 // -- continuous color scale -- //
                 //style={{fill:colormap(country[0].happiness_score)}}
                 />
+                    } else {
+                        return <path key={feature.properties.name+"boundary"} className={"boundary"} 
+                d={path(feature)} opacity={opacity}/>
                     }
-            }
-
+            } else {
+                return <path key={feature.properties.name+"boundary"} className={"boundary"} 
+            d={path(feature)} opacity={opacity}/>} 
                 }
             )}
             {map.features.map( feature => {
@@ -89,7 +90,17 @@ export function WorldMap(props){
                 if (country[0]){
                     return <path key={feature.properties.name+"boundary"} className={"boundary"} 
                     d={path(feature)} 
-                    style={{fill: colormap(country[0].income_grp)}} />}
+                    style={{fill: colormap(country[0].income_grp)}} />
+                }  else {
+                        if (hoveredLegend==="6. Unknown") {
+                            const country = data.filter( d => d.country === feature.properties.name);
+                            if (!country[0]) {
+                                return <path key={feature.properties.name+"boundary"} className={"boundary"} 
+                                d={path(feature)} style={{fill:"blue"}}/>
+                            }
+                        }
+                           return <g key={feature.properties.name+"boundary"}></g> 
+                        }
 
             })}
         </g>

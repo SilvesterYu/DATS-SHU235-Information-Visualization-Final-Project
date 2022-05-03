@@ -25,6 +25,7 @@ import {
   schemePRGn,
   schemeSpectral,
   schemePastel2,
+  schemeYlGn,
 } from "d3";
 import { MultipleLineChart } from "./lineChart";
 import * as topojson from "topojson-client";
@@ -143,7 +144,7 @@ function Geomap() {
           <Dropdown
             placeholder="select filter"
             className="dropDown"
-            options={["none", "top 5", "top 10", "top 20", "top 50"]}
+            options={["none", "top 5", "top 10", "top 20", "top 30", "top 40", "top 50"]}
             value=" "
             onChange={(d) => Select(d)}
             onSelect={(d) => Select(d)} // always fires once a selection happens even if there is no change
