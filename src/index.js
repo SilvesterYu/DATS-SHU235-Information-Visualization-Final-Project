@@ -2,7 +2,7 @@ import React, { useEffect } from "react";
 import ReactDOM from "react-dom";
 import { WorldMap } from "./worldmap";
 import { LegendBase } from "./legend";
-import {BarChart} from './barChart';
+import { BarChart } from "./barChart";
 import "./styles.css";
 // -- can experiment with different color schemes -- //
 import {
@@ -85,17 +85,29 @@ function FormatNonData(opacity) {
       countryBoundaries2[i].style.opacity = opacity;
     }
   }
+
+  var countryBoundaries3 = document.getElementsByClassName("boundary");
+
+  for (let i = 0; i < countryBoundaries3.length; i++) {
+    if (!countryBoundaries3[i].id) {
+      countryBoundaries3[i].style.opacity = opacity;
+    }
+  }
 }
 
 function Geomap() {
   const [selectedregion, setSelectedregion] = React.useState(null);
 
-  const [selectedCountry, setSelectedCountry] = React.useState(null);
+  const [selectedCountryBar, setSelectedCountryBar] = React.useState(null);
+  // Get data from the Bar Graph for Intearactivity
+  const pull_data_bar = (data) => {
+    setSelectedCountryBar(data);
+  };
 
-  // Get data from the graph, and process the graph to map interactivity
+  // Get data from the Line graph, and process the graph to map interactivity
   // https://javascript.plainenglish.io/how-to-pass-props-from-child-to-parent-component-in-react-d90752ff4d01
   const pull_data = (data) => {
-    console.log(data);
+    // console.log(data);
     if (data == "None" || data == undefined) {
       for (let i = 0; i < all_country_ID.length; i++) {
         document.getElementById(all_country_ID[i]).style.opacity = "1.0";
@@ -114,47 +126,70 @@ function Geomap() {
   };
   // Process country region highlighting
   useEffect(() => {
-    all_country_ID = [];
-    var countryBoundaries = document.getElementsByClassName("boundary");
-    if (countryBoundaries[0]) {
-      for (var i = 0; i < countryBoundaries.length; i++) {
-        if (
-          countryBoundaries[i].id != undefined &&
-          countryBoundaries[i].id != ""
-        ) {
-          all_country_ID.push(countryBoundaries[i].id);
+    if (selectedCountryBar == null) {
+      // Reset opacity
+      for (let i = 0; i < all_country_ID.length; i++) {
+        if (document.getElementById(all_country_ID[i])) {
+          document.getElementById(all_country_ID[i]).style.opacity = "1.0";
         }
       }
-      // Add event listeners
-      for (var i = 0; i < countryBoundaries.length; i++) {
-        countryBoundaries[i].addEventListener("mouseover", function () {
-          setSelectedregion(event.target.id);
-          FormatNonData("0.1");
-          // Process the highlight
-          if (all_country_ID[0]) {
-            for (let i = 0; i < all_country_ID.length; i++) {
-              if (all_country_ID[i] == event.target.id) {
-                document.getElementById(event.target.id).style.cursor =
-                  "pointer";
-                document.getElementById(event.target.id).style.opacity = "1.0";
-                // console.log(selectedregion);
-              } else {
-                document.getElementById(all_country_ID[i]).style.opacity =
-                  "0.1";
+      FormatNonData("1.0");
+      // Do not plot bar, go with line chart
+      all_country_ID = [];
+      var countryBoundaries = document.getElementsByClassName("boundary");
+      if (countryBoundaries[0]) {
+        for (var i = 0; i < countryBoundaries.length; i++) {
+          if (
+            countryBoundaries[i].id != undefined &&
+            countryBoundaries[i].id != ""
+          ) {
+            all_country_ID.push(countryBoundaries[i].id);
+          }
+        }
+        // HIGHLIGHTING FOR LINE CHART
+        // Add event listeners
+        for (var i = 0; i < countryBoundaries.length; i++) {
+          countryBoundaries[i].addEventListener("mouseover", function () {
+            setSelectedregion(event.target.id);
+            FormatNonData("0.1");
+            // Process the highlight
+            if (all_country_ID[0]) {
+              for (let i = 0; i < all_country_ID.length; i++) {
+                if (all_country_ID[i] == event.target.id) {
+                  document.getElementById(event.target.id).style.cursor =
+                    "pointer";
+                  document.getElementById(event.target.id).style.opacity =
+                    "1.0";
+                  // console.log(selectedregion);
+                } else {
+                  document.getElementById(all_country_ID[i]).style.opacity =
+                    "0.1";
+                }
               }
             }
-          }
-        });
-        countryBoundaries[i].addEventListener("mouseout", function () {
-          setSelectedregion("");
-          //  Reset Opacity
-          if (all_country_ID[0]) {
-            FormatNonData("1.0");
-            for (let i = 0; i < all_country_ID.length; i++) {
-              document.getElementById(all_country_ID[i]).style.opacity = "1.0";
+          });
+          countryBoundaries[i].addEventListener("mouseout", function () {
+            setSelectedregion("");
+            //  Reset Opacity
+            if (all_country_ID[0]) {
+              FormatNonData("1.0");
+              for (let i = 0; i < all_country_ID.length; i++) {
+                document.getElementById(all_country_ID[i]).style.opacity =
+                  "1.0";
+              }
             }
-          }
-        });
+          });
+        }
+      }
+    } else {
+      // Highlight the country from bar
+      FormatNonData("0.1");
+      for (let i = 0; i < all_country_ID.length; i++) {
+        if (all_country_ID[i].includes(selectedCountryBar)) {
+          document.getElementById(all_country_ID[i]).style.opacity = "1.0";
+        } else {
+          document.getElementById(all_country_ID[i]).style.opacity = "0.1";
+        }
       }
     }
   });
@@ -165,7 +200,7 @@ function Geomap() {
   const [selectedRank, setSelectedRank] = React.useState(" ");
   const WIDTH = 1000;
   const HEIGHT = 600;
-  const margin = { left: 50, right: 50, top: 50, bottom: 50, gap:10 };
+  const margin = { left: 50, right: 50, top: 50, bottom: 50, gap: 10 };
   // For Bar
   const innerWidth = WIDTH - margin.left - margin.right;
   const innerHeight = HEIGHT - margin.top - margin.bottom;
@@ -257,7 +292,7 @@ function Geomap() {
           {/* // -- adjust the width and height of the map here -- // */}
           <svg
             width={WIDTH * 0.9}
-            height={HEIGHT * 0.9}
+            height={HEIGHT * 0.85}
             viewBox={"0 0 1000 600"}
           >
             <g>
@@ -282,15 +317,17 @@ function Geomap() {
             </g>
           </svg>
         </div>
-            <div>
-              <BarChart 
-              selectedRank={selectedRank}
-                height={170} 
-                width={900} 
-                data={data}
-                ></BarChart>
-             <br/>
-            </div>
+        <div>
+          <BarChart
+            selectedRank={selectedRank}
+            height={170}
+            width={500}
+            data={data}
+            func={pull_data_bar}
+            currentRegion={selectedregion}
+          ></BarChart>
+          <br />
+        </div>
       </div>
       {/* Column Right */}
       <div className="column2" style={{ backgroundColor: "#fff" }}>
