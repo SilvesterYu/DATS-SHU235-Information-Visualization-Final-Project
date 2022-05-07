@@ -10,23 +10,8 @@ import {
   csv,
   scale,
   scaleSequential,
-  interpolateOranges,
-  interpolatePurples,
-  schemeReds,
-  schemePiYG,
   schemePurples,
-  scaleOrdinal,
-  schemeOranges,
-  schemeBrBG,
-  schemeBlues,
-  schemeOrRd,
-  schemePaired,
-  schemeGreens,
-  schemeCategory10,
-  schemePRGn,
-  schemeSpectral,
-  schemePastel2,
-  schemeYlGn,
+  scaleOrdinal
 } from "d3";
 import { MultipleLineChart } from "./lineChart";
 import * as topojson from "topojson-client";
@@ -96,6 +81,7 @@ function FormatNonData(opacity) {
 }
 
 function Geomap() {
+  // -- when mouse hovers over the country area -- //
   const [selectedregion, setSelectedregion] = React.useState(null);
 
   const [selectedCountryBar, setSelectedCountryBar] = React.useState(null);
@@ -158,8 +144,8 @@ function Geomap() {
                 if (all_country_ID[i] == event.target.id) {
                   document.getElementById(event.target.id).style.cursor =
                     "pointer";
-                  document.getElementById(event.target.id).style.opacity =
-                    "1.0";
+                  document.getElementById(event.target.id).style.fill =
+                    "red";
                   // console.log(selectedregion);
                 } else {
                   document.getElementById(all_country_ID[i]).style.opacity =
@@ -169,6 +155,22 @@ function Geomap() {
             }
           });
           countryBoundaries[i].addEventListener("mouseout", function () {
+            // -- when mouseOut, change back original color -- //
+            if (all_country_ID[0]) {
+              for (let i = 0; i < all_country_ID.length; i++) {
+            if (all_country_ID[i] == event.target.id) {
+              document.getElementById(event.target.id).style.cursor =
+                "pointer";
+              const country = data.filter(
+                  (d) => d.country === event.target.id.split("--")[0].split("_").join(" ")
+              );
+              // console.log(country[0]);
+              document.getElementById(event.target.id).style.fill =
+              colormap(country[0].happiness_level);
+              
+            }
+          }
+        }
             setSelectedregion("");
             //  Reset Opacity
             if (all_country_ID[0]) {

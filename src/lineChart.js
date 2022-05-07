@@ -13,15 +13,17 @@ let color_index = 0;
 function getColor() {
   // We can add as many hex colors into following array, and line graph colors will loop through
   let colour = [
-    "#ff0000",
-    "#003366",
-    "#800080",
-    "#ff5c00",
-    "#ffb600",
-    "#187377",
-    "#008080",
-    "#0c9c19",
-    "#088da5",
+    "grey",
+    "red",
+    "orange",
+    "yellow",
+    "lightgreen",
+    "green",
+    "lightblue",
+    "darkblue",
+    "steelblue",
+    "darkpurple",
+    "black",
   ];
   color_index = (color_index + 1) % colour.length;
   return colour[color_index];
@@ -48,15 +50,15 @@ function autoIDGenerate() {
 // Region Names - Don't delete
 const regionNames = [
   "Australia and New Zealand",
-  "Central and Eastern Europe",
-  "Eastern Asia",
-  "Latin America and Caribbean",
-  "Middle East and Northern Africa",
   "North America",
-  "Southeastern Asia",
-  "Southern Asia",
-  "Sub-Saharan Africa",
   "Western Europe",
+  "Latin America and Caribbean",
+  "Eastern Asia",
+  "Middle East and Northern Africa",
+  "Central and Eastern Europe",
+  "Southeastern Asia",
+  "Sub-Saharan Africa",
+  "Southern Asia",
 ];
 // This is where data comes in, in JSON format exactly as below
 const dataChart = [
