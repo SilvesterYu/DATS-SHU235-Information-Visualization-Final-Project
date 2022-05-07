@@ -3,6 +3,7 @@ import ReactDOM from "react-dom";
 import { WorldMap } from "./worldmap";
 import { LegendBase } from "./legend";
 import { BarChart } from "./barChart";
+import { ToolTip } from "./toolTip";
 import "./styles.css";
 // -- can experiment with different color schemes -- //
 import {
@@ -80,11 +81,32 @@ function FormatNonData(opacity) {
   }
 }
 
+// -- to monitor mouse positions -- //
+var x = null;
+var y = null;
+    
+document.addEventListener('mousemove', onMouseUpdate, false);
+document.addEventListener('mouseenter', onMouseUpdate, false);
+    
+function onMouseUpdate(e) {
+  x = e.pageX;
+  y = e.pageY;
+}
+
+function getMouseX() {
+  return x;
+}
+
+function getMouseY() {
+  return y;
+}
+
 function Geomap() {
   // -- when mouse hovers over the country area -- //
   const [selectedregion, setSelectedregion] = React.useState(null);
 
   const [selectedCountryBar, setSelectedCountryBar] = React.useState(null);
+
   // Get data from the Bar Graph for Intearactivity
   const pull_data_bar = (data) => {
     setSelectedCountryBar(data);
@@ -135,6 +157,7 @@ function Geomap() {
         // HIGHLIGHTING FOR LINE CHART
         // Add event listeners
         for (var i = 0; i < countryBoundaries.length; i++) {
+          // -- when mouse hovers over a country's region -- //
           countryBoundaries[i].addEventListener("mouseover", function () {
             setSelectedregion(event.target.id);
             FormatNonData("0.1");
@@ -144,8 +167,9 @@ function Geomap() {
                 if (all_country_ID[i] == event.target.id) {
                   document.getElementById(event.target.id).style.cursor =
                     "pointer";
-                  document.getElementById(event.target.id).style.fill =
-                    "red";
+                    document.getElementById(event.target.id).style.opacity =
+                    "1";
+                  // document.getElementById(event.target.id).style.fill = "red";
                   // console.log(selectedregion);
                 } else {
                   document.getElementById(all_country_ID[i]).style.opacity =
@@ -155,7 +179,7 @@ function Geomap() {
             }
           });
           countryBoundaries[i].addEventListener("mouseout", function () {
-            // -- when mouseOut, change back original color -- //
+            // -- when mouse hovers out of a country's region, change back to original color -- //
             if (all_country_ID[0]) {
               for (let i = 0; i < all_country_ID.length; i++) {
             if (all_country_ID[i] == event.target.id) {
@@ -296,6 +320,7 @@ function Geomap() {
             width={WIDTH * 0.9}
             height={HEIGHT * 0.85}
             viewBox={"0 0 1000 600"}
+            id="worldMapSVG"
           >
             <g>
               <WorldMap
@@ -317,7 +342,9 @@ function Geomap() {
                 setHoveredLegend={setHoveredLegend}
               />
             </g>
-          </svg>
+                     </svg>
+                     <ToolTip selectedRegion = {selectedregion} offsetX = {x} offsetY = {y} height = {100} width = {100} data = {data}></ToolTip>
+
         </div>
         <div>
           <BarChart

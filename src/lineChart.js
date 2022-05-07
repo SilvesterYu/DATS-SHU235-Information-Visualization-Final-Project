@@ -22,7 +22,7 @@ function getColor() {
     "lightblue",
     "darkblue",
     "steelblue",
-    "darkpurple",
+    "purple",
     "black",
   ];
   color_index = (color_index + 1) % colour.length;

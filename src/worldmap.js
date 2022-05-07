@@ -39,7 +39,7 @@ export function WorldMap(props) {
         {map.features.map((feature) => {
           const country = data.filter(
             (d) => d.country === feature.properties.name
-          ); // Todo: apply string methods to remove spaces
+          ); 
           if (country[0]) {
             return (
               <path
