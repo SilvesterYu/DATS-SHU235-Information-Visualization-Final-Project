@@ -5,7 +5,6 @@ import { LegendBase } from "./legend";
 import { BarChart } from "./barChart";
 import { ToolTip } from "./toolTip";
 import "./styles.css";
-// -- can experiment with different color schemes -- //
 import {
   json,
   csv,
