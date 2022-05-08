@@ -25,7 +25,7 @@ function ToolTip(props) {
                 rank: countryData[0].happiness_rank ,
                 score: countryData[0].happiness_score});
 
-            console.log(currentCountryData);
+            // console.log(currentCountryData);
 
             setCopyCountryData(
                 [

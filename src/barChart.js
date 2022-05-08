@@ -50,6 +50,13 @@ function BarChart(props) {
         }
       }
     }
+            // // Show tooltip
+            // tooltip.style("visibility", "visible");
+            // // Position the tooltip
+            // tooltip
+            //   .style("top", event.pageY + 20 + "px")
+            //   .style("left", event.pageX + 5 + "px");
+              
   };
   const mouseOut = (event) => {
     props.func(null);

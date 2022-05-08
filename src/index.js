@@ -223,13 +223,8 @@ function Geomap() {
   const innerWidth = WIDTH - margin.left - margin.right;
   const innerHeight = HEIGHT - margin.top - margin.bottom;
 
-  // const testData = useData(avgUrl);
-  // console.log(testData);
-  // console.log("=========");
-
   // -- data for geoMap -- //
   const rawData = useData(csvUrl);
-  console.log(typeof(rawData));
   const map = useMap(mapUrl);
   if (!map || !rawData) {
     return <pre>Loading...</pre>;
@@ -360,7 +355,6 @@ function Geomap() {
       <div className="column2" style={{ backgroundColor: "#fff" }}>
         <MultipleLineChart
           currentRegion={selectedregion}
-          dataAll = {data}
           func={pull_data}
         ></MultipleLineChart>
       </div>

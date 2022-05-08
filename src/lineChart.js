@@ -430,10 +430,7 @@ const dataChart = [
 var dataProcessed = [];
 
 export function MultipleLineChart(props) {
-  const { currentRegion, dataAll } = props;
-  
-  console.log(dataAll);
-  console.log("+++++"),
+  const { currentRegion } = props;
 
   useEffect(() => {
     // Draw lines based on whether a region is selected on map
