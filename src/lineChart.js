@@ -18,27 +18,6 @@ const faintOpacity = 0.1; //For how much other lines should faint when one is se
 // Color Swatch Assignment using modulo to rotate around
 let color_index = 0;
 
-const avgUrl = "https://raw.githubusercontent.com/SilvesterYu/DATS-SHU235-Information-Visualization-Final-Project/main/src/data/Happiness_score_average.csv";
-
-// -- load data from csvPath -- //
-
-function useData(csvPath) {
-  const [dataAll, setData] = React.useState(null);
-  React.useEffect(() => {
-    csv(csvPath).then((data) => {
-      data.forEach((d) => {
-        d.happiness_score_avg = d.happiness_score_avg;
-        d.year = +d.year;
-      });
-      setData(data);
-    });
-  }, []);
-  console.log(dataAll);
-  console.log("----");
-  return dataAll;
-}
-
-
 function getColor() {
   // We can add as many hex colors into following array, and line graph colors will loop through
   let colour = [
@@ -92,7 +71,6 @@ const regionNames = [
 
 
 // This is where data comes in, in JSON format exactly as below
-/*
 const dataChart = [
   {
     region: "Australia and New Zealand",
@@ -446,16 +424,15 @@ const dataChart = [
   },
 ];
 
-*/
+
 
 // This holds the processed data. The data is splitted into multiple arrays according to regions for easier graphing
 var dataProcessed = [];
 
 export function MultipleLineChart(props) {
-  const { currentRegion } = props;
+  const { currentRegion, dataAll } = props;
   
-  const dataChart = useData(avgUrl);
-  console.log(dataChart);
+  console.log(dataAll);
   console.log("+++++"),
 
   useEffect(() => {
