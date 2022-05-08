@@ -5,7 +5,7 @@
 Ming Xian, Silvey Yu, Mingqian Zheng (by alphabetical order)
 
 ## What it is
-This is a visualization of world happiness scores from 2015 to 2021.
+This is a visualization of world happiness scores from 2015 to 2021. We show the geographical patterns of happiness scores with a color map.
 
 ## Data
 World Happiness Dataset 2015-2022
