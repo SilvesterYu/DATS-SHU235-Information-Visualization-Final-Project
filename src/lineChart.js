@@ -20,18 +20,20 @@ let color_index = 0;
 
 function getColor() {
   // We can add as many hex colors into following array, and line graph colors will loop through
+  // -- color selector with opacity control: https://jscolor.com/ -- //
   let colour = [
     "grey",
-    "red",
-    "orange",
-    "yellow",
-    "lightgreen",
-    "green",
-    "lightblue",
-    "steelblue",
-    "darkblue",
-    "purple",
-    "black",
+    "#FF0303D6",
+    "#FF7626D1",
+    "#e6b800",
+    "#00b300",
+    "#127008D6",
+
+    "#00BCBDB3",
+    "#141BFF85",
+    "#C317CF75",
+    "#6500E8FF",
+    "#4D4D4DC2",
   ];
   color_index = (color_index + 1) % colour.length;
   return colour[color_index];

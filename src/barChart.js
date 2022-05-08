@@ -17,7 +17,7 @@ function BarChart(props) {
   // -- tooptip -- //
   const [tooltipX, setTooltipX] = React.useState(null);
   const [tooltipY, setTooltipY] = React.useState(null);
-  const [selectedStation, setSelectedStation] = React.useState(null);
+  const [selectedCountry, setSelectedCountry] = React.useState(null);
 
   const {
     offsetX,
@@ -59,12 +59,9 @@ function BarChart(props) {
         }
       }
     }
-    console.log(d);
-    setSelectedStation(d);
-    console.log(selectedStation);
+    setSelectedCountry(d);
     setTooltipX(event.pageX);
-    setTooltipY(event.pageY);
-              
+    setTooltipY(event.pageY);            
   };
   const mouseOut = (event) => {
     props.func(null);
@@ -74,7 +71,7 @@ function BarChart(props) {
         document.getElementById(allCountries[j]).style.opacity = "1.0";
       }
     }
-    setSelectedStation(null);
+    setSelectedCountry(null);
     setTooltipX(null);
     setTooltipY(null);
   };
@@ -83,6 +80,9 @@ function BarChart(props) {
   useEffect(() => {
     if (selectedRank.label == undefined) {
       setDynamicwidth(1200);
+      // -- not display barChart when nothing is selected -- //
+      // -- Delete the line below to show a full barChart when started -- //
+      setSelectedInt(0);
     } else {
       setSelectedInt(parseInt(selectedRank.label.split(" ")[1]));
       setDynamicwidth(selectedInt * 20);
@@ -129,12 +129,8 @@ function BarChart(props) {
     .domain([0, max(filteredCountry, (d) => d.happiness_score)])
     .nice();
 
-  console.log("current region");
-  console.log(selectedStation);
-  
   const divStyle = {
-    font: "18px Lucida Handwriting",
-    stroke: "purple"
+    font: "21px Papyrus"
 };
 
   if (selectedInt >= 1) {
@@ -151,8 +147,8 @@ function BarChart(props) {
             y={0}
             x={-30}
             dy={".75em"}
-            transform={"rotate(-90)"}
-            style={{font:"11pt Lucida Handwriting"}}
+            transform={"rotate(-90) translate(25, -1)"}
+            style={{font:"11pt"}}
           >
             Happiness Score
           </text>
@@ -170,7 +166,7 @@ function BarChart(props) {
               transform={`translate(20, ${yScale(tickValue)})`}
             >
               <line x2={10} stroke="black" />
-              <text style={{ textAnchor: "end", fontSize: "10px" }}>
+              <text style={{ textAnchor: "end", fontSize: "13px" }}>
                 {tickValue}
               </text>
             </g>
@@ -184,7 +180,7 @@ function BarChart(props) {
                 x={xScale(d.country + " (" + d.year + ")")}
                 y={yScale(d.happiness_score)}
                 height={height - yScale(d.happiness_score)}
-                fill={"#7b1fa2"}
+                fill={"#7C57BAFF"}
                 width={xScale.bandwidth()}
                 onMouseEnter={(event) => mouseEnter(d, event)}
                 onMouseOut={(event) => mouseOut(event)}
@@ -198,7 +194,7 @@ function BarChart(props) {
             >
               <line y2={height} />
               <text
-                style={{ textAnchor: "country", fontSize: "10px" }}
+                style={{ textAnchor: "country", fontSize: "15px" }}
                 y={height + 3}
                 transform={`rotate(75, 0, ${height + 3})`}
               >
@@ -209,13 +205,13 @@ function BarChart(props) {
           Sorry, your browser does not support inline SVG.
         </svg>
         
-        <ToolTipBar d = {selectedStation} left={tooltipX} top={tooltipY}/>
+        <ToolTipBar d = {selectedCountry} left={tooltipX} top={tooltipY}/>
         
       </>
     );
   } else {
     return (
-      <div>
+      <div style={divStyle}>
         No countries selected. Please select the dropdown menu for bar chart.
       </div>
     );

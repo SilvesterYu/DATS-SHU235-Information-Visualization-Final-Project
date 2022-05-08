@@ -10,11 +10,11 @@ export function ToolTipBar(props){
         const divStyle = {
             position: "absolute",
             textAlign: "left",
-            width: "150px",
+            width: "180px",
             height: "100px",
             padding: "2px",
             font: "18px Georgia",
-            background: "lightblue",
+            background: "#DAB5FFE6",
             border: "0px",
             borderRadius: "8px",
             pointerEvents: "none",
