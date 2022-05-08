@@ -267,7 +267,7 @@ function Geomap() {
     <div className="row">
       {/* Column Left */}
       <div className="column1" style={{ backgroundColor: "#fff" }}>
-        <div>
+        <div style={{color: "red"}}>
           <input
             key="slider"
             type="range"

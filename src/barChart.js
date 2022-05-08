@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from "react";
 import { scaleLinear, scaleBand, max, map, descending } from "d3";
+import { ToolTipBar } from "./toolTipBar";
 const faintOpacity = 0.1; //For how much other lines should faint when one is selected
 
 // This is to note the direction of data flow between bar and map
@@ -12,6 +13,12 @@ function BarChart(props) {
       // Tooltip variable
   const [dynamicwidth, setDynamicwidth] = useState(1200);
   const [selectedInt, setSelectedInt] = useState(1000000);
+
+  // -- tooptip -- //
+  const [tooltipX, setTooltipX] = React.useState(null);
+  const [tooltipY, setTooltipY] = React.useState(null);
+  const [selectedStation, setSelectedStation] = React.useState(null);
+
   const {
     offsetX,
     offsetY,
@@ -19,8 +26,6 @@ function BarChart(props) {
     height,
     width,
     currentRegion,
-    selectedStation,
-    setSelectedStation,
     selectedRank,
   } = props;
   //   console.log("plotting barChart");
@@ -39,6 +44,7 @@ function BarChart(props) {
     // Deal with highlighting
     var currentID = d.country + "_" + d.year;
     console.log(d.country);
+    console.log(d);
     console.log(d.year);
     if (allCountries[0]) {
       for (let j = 0; j < allCountries.length; j++) {
@@ -53,12 +59,11 @@ function BarChart(props) {
         }
       }
     }
-            // // Show tooltip
-            // tooltip.style("visibility", "visible");
-            // // Position the tooltip
-            // tooltip
-            //   .style("top", event.pageY + 20 + "px")
-            //   .style("left", event.pageX + 5 + "px");
+    console.log(d);
+    setSelectedStation(d);
+    console.log(selectedStation);
+    setTooltipX(event.pageX);
+    setTooltipY(event.pageY);
               
   };
   const mouseOut = (event) => {
@@ -69,6 +74,9 @@ function BarChart(props) {
         document.getElementById(allCountries[j]).style.opacity = "1.0";
       }
     }
+    setSelectedStation(null);
+    setTooltipX(null);
+    setTooltipY(null);
   };
 
   //   Dyanmic width with hooks
@@ -121,10 +129,18 @@ function BarChart(props) {
     .domain([0, max(filteredCountry, (d) => d.happiness_score)])
     .nice();
 
+  console.log("current region");
+  console.log(selectedStation);
+  
+  const divStyle = {
+    font: "18px Lucida Handwriting",
+    stroke: "purple"
+};
+
   if (selectedInt >= 1) {
     return (
       <>
-        <div>
+        <div style={divStyle}>
           Displaying {selectedInt <= 1000 ? "top " : ""}
           {selectedInt <= 1000 ? selectedInt : "all"} countries
         </div>
@@ -136,6 +152,7 @@ function BarChart(props) {
             x={-30}
             dy={".75em"}
             transform={"rotate(-90)"}
+            style={{font:"11pt Lucida Handwriting"}}
           >
             Happiness Score
           </text>
@@ -191,6 +208,9 @@ function BarChart(props) {
           ))}
           Sorry, your browser does not support inline SVG.
         </svg>
+        
+        <ToolTipBar d = {selectedStation} left={tooltipX} top={tooltipY}/>
+        
       </>
     );
   } else {

@@ -702,9 +702,14 @@ export function MultipleLineChart(props) {
       linetoSelect = currentRegion.split("--")[1].replace("_", " ");
     }
   }
+
+  const divStyle = {
+    font: "18px Lucida Handwriting"
+};
+
   return (
     <div>
-      <div>
+      <div style={divStyle}>
         {currentRegion
           ? currentRegion.replace(/_/g, " ")
           : "No Region Selected"}
