@@ -9,6 +9,7 @@ const csvUrl =
   "https://raw.githubusercontent.com/SilvesterYu/DATS-SHU235-Information-Visualization-Final-Project/main/src/data/binnined_final_version_data.csv";
 
 function BarChart(props) {
+      // Tooltip variable
   const [dynamicwidth, setDynamicwidth] = useState(1200);
   const [selectedInt, setSelectedInt] = useState(1000000);
   const {
@@ -37,6 +38,8 @@ function BarChart(props) {
     props.func(regionIDProcessed);
     // Deal with highlighting
     var currentID = d.country + "_" + d.year;
+    console.log(d.country);
+    console.log(d.year);
     if (allCountries[0]) {
       for (let j = 0; j < allCountries.length; j++) {
         if (currentID == allCountries[j]) {
@@ -101,15 +104,13 @@ function BarChart(props) {
     // console.log(currentRegion + " " + dataFlow);
   }, [props, selectedRank, selectedInt, currentRegion]);
 
-  // -- Q2.6 make bars sorted (May) -- //
-  // -- Q2.6 make bars sorted (May) -- //
   let maySort = data.sort(function (x, y) {
     return descending(x.happiness_score, y.happiness_score);
   });
 
   const filteredCountry = maySort.filter(
     (d) => d.happiness_rank <= selectedInt
-  ); // Todo: apply string methods to remove spaces
+  ); 
 
   //   console.log(filteredCountry);
   const xScale = scaleBand()
