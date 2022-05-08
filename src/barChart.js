@@ -142,7 +142,7 @@ function BarChart(props) {
           {yScale.ticks(5).map((tickValue) => (
             <g
               key={tickValue}
-              transform={`translate(-10, ${yScale(tickValue)})`}
+              transform={`translate(20, ${yScale(tickValue)})`}
             >
               <line x2={10} stroke="black" />
               <text style={{ textAnchor: "end", fontSize: "10px" }}>

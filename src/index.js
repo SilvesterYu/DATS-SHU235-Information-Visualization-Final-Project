@@ -343,7 +343,7 @@ function Geomap() {
               />
             </g>
                      </svg>
-                     <ToolTip selectedRegion = {selectedregion} offsetX = {x} offsetY = {y} height = {100} width = {100} data = {data}></ToolTip>
+                     <ToolTip selectedRegion = {selectedregion} offsetX = {x} offsetY = {y} height = {250} width = {700} data = {data}></ToolTip>
 
         </div>
         <div>

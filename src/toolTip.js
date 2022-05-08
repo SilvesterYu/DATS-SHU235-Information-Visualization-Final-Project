@@ -29,17 +29,16 @@ function ToolTip(props) {
 
             setCopyCountryData(
                 [
-                    { name: "Dystopia Residual", value: countryData[0].dystopia_residual },
                     {name: "Economy GDP per Capita", value: countryData[0].economy_GDP_per_capita },
                     { name: "Family", value: countryData[0].family },
                     { name: "Freedom", value: countryData[0].freedom },
                     { name: "Generosity", value: countryData[0].generosity },
                     { name: "Health Life Expectancy", value: countryData[0].health_life_expectancy },
-                    { name: "Trust Government Corruption", value: countryData[0].trust_government_corruption }
+                    { name: "Trust Government Corruption", value: countryData[0].trust_government_corruption },
+                    { name: "Dystopia Residual", value: countryData[0].dystopia_residual },
                 ]);
             // console.log(copyCountryData);
             // console.log(offsetX, offsetY);
-            // --pie chart-- //
         } else {
             setCopyCountryData(null);
         }
@@ -68,7 +67,7 @@ function ToolTip(props) {
     if(copyCountryData){
     return <div style={{backgroundColor:"#fff",border:"1px solid #000",paddingRight:"10px",borderRadius:"10px",paddingTop:"10px", textAlign: "center",position:"absolute",top:(offsetY + 30) + "px", left:(offsetX + 5) + "px"}}>
       { copyCountryData ? <b >{currentCountryData.country} | Rank - {currentCountryData.rank} | Score - {currentCountryData.score} </b> : <></> }
-<PieChart width={730} height={250}>
+<PieChart width={width} height={height}>
         <Pie data={copyCountryData} isAnimationActive={false} dataKey="value" nameKey="name" cx="50%" cy="50%" outerRadius={50} fill="#8884d8" />
         <Pie data={copyCountryData} isAnimationActive={false} dataKey="value" nameKey="name" cx="50%" cy="50%" innerRadius={60} outerRadius={80} fill="#82ca9d" label={({
             cx,
