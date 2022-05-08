@@ -27,7 +27,7 @@ export function WorldMap(props) {
     selectedInt = parseInt(selectedRank.label.split(" ")[1]);
   }
   // console.log(path({type:"Sphere"}));
-  // -- use income level to filter out the data that belongs to this income level: filter the data with income level the same as the selected legend -- //
+  // -- use happiness level to filter out the data that belongs to this happiness level: filter the data with happiness level the same as the selected legend -- //
   const filteredData = data.filter((d) => d.happiness_level === hoveredLegend);
   // -- control the opacity by hover legend -- //
   const opacity = hoveredLegend ? 0.5 : 1;

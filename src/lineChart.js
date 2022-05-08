@@ -1,6 +1,14 @@
 import React, { useState, useEffect } from "react";
 import ReactDOM from "react-dom";
 import * as d3 from "d3";
+import {
+  json,
+  csv,
+  scale,
+  scaleSequential,
+  schemePurples,
+  scaleOrdinal
+} from "d3";
 
 // General Parameters, can change
 const yAxisLabel = "Average Happniess Score";
@@ -9,6 +17,27 @@ const faintOpacity = 0.1; //For how much other lines should faint when one is se
 
 // Color Swatch Assignment using modulo to rotate around
 let color_index = 0;
+
+const avgUrl = "https://raw.githubusercontent.com/SilvesterYu/DATS-SHU235-Information-Visualization-Final-Project/main/src/data/Happiness_score_average.csv";
+
+// -- load data from csvPath -- //
+
+function useData(csvPath) {
+  const [dataAll, setData] = React.useState(null);
+  React.useEffect(() => {
+    csv(csvPath).then((data) => {
+      data.forEach((d) => {
+        d.happiness_score_avg = d.happiness_score_avg;
+        d.year = +d.year;
+      });
+      setData(data);
+    });
+  }, []);
+  console.log(dataAll);
+  console.log("----");
+  return dataAll;
+}
+
 
 function getColor() {
   // We can add as many hex colors into following array, and line graph colors will loop through
@@ -22,7 +51,7 @@ function getColor() {
     "lightblue",
     "darkblue",
     "steelblue",
-    "purple",
+    "darkpurple",
     "black",
   ];
   color_index = (color_index + 1) % colour.length;
@@ -60,7 +89,10 @@ const regionNames = [
   "Sub-Saharan Africa",
   "Southern Asia",
 ];
+
+
 // This is where data comes in, in JSON format exactly as below
+/*
 const dataChart = [
   {
     region: "Australia and New Zealand",
@@ -414,11 +446,17 @@ const dataChart = [
   },
 ];
 
+*/
+
 // This holds the processed data. The data is splitted into multiple arrays according to regions for easier graphing
 var dataProcessed = [];
 
 export function MultipleLineChart(props) {
   const { currentRegion } = props;
+  
+  const dataChart = useData(avgUrl);
+  console.log(dataChart);
+  console.log("+++++"),
 
   useEffect(() => {
     // Draw lines based on whether a region is selected on map

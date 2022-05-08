@@ -93,14 +93,6 @@ function onMouseUpdate(e) {
   y = e.pageY;
 }
 
-function getMouseX() {
-  return x;
-}
-
-function getMouseY() {
-  return y;
-}
-
 function Geomap() {
   // -- when mouse hovers over the country area -- //
   const [selectedregion, setSelectedregion] = React.useState(null);
@@ -232,6 +224,7 @@ function Geomap() {
   const innerHeight = HEIGHT - margin.top - margin.bottom;
 
   const rawData = useData(csvUrl);
+  console.log(typeof(rawData));
   const map = useMap(mapUrl);
   if (!map || !rawData) {
     return <pre>Loading...</pre>;
@@ -253,15 +246,15 @@ function Geomap() {
 
   const width = WIDTH - margin.left - margin.right;
   const height = HEIGHT - margin.top - margin.bottom;
-  const income_grp = data.map((d) => d.happiness_level);
-  const incomeLevels = income_grp
-    .filter((a, b) => income_grp.indexOf(a) === b)
+  const happiness_grp = data.map((d) => d.happiness_level);
+  const happinessLevels = happiness_grp
+    .filter((a, b) => happiness_grp.indexOf(a) === b)
     .sort()
     .reverse();
 
   // -- ordinal color scale -- //
-  const colormap = scaleOrdinal(schemePurples[incomeLevels.length]).domain(
-    incomeLevels
+  const colormap = scaleOrdinal(schemePurples[happinessLevels.length]).domain(
+    happinessLevels
   );
 
   // -- continuous color scale -- //
@@ -337,7 +330,7 @@ function Geomap() {
                 x={50}
                 y={HEIGHT / 2}
                 colormap={colormap}
-                incomeLevels={incomeLevels}
+                happinessLevels={happinessLevels}
                 hoveredLegend={hoveredLegend}
                 setHoveredLegend={setHoveredLegend}
               />
