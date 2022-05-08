@@ -12,11 +12,7 @@ World Happiness Dataset 2015-2022
 https://www.kaggle.com/datasets/mathurinache/world-happiness-report
 
 ## Packages:
-d3
-
-react
-
-rechart
+d3, react, rechart
 
 
 
