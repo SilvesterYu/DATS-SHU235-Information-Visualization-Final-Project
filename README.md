@@ -34,7 +34,24 @@ npm i recharts
 
 npx webpack server
 
+## Screenshots
+
+Initial view
+
 <img width="869" alt="523c83ccf3c29a12665f83c9c74cf2c" src="https://user-images.githubusercontent.com/74582280/167342015-a1ea8e8e-05b8-4d6e-9b58-7007281e8d5b.png">
+
+Linked highlighting (barChart -> colorMap)
+
+![Screenshot (34)](https://user-images.githubusercontent.com/74582280/167342420-d33a8b91-b310-4fcb-978d-abc8caa49692.png)
+
+Linked highlighting of 3 charts
+
+![Screenshot (36)](https://user-images.githubusercontent.com/74582280/167342489-2a525f08-4e85-4fd4-b8d9-148bde2c265b.png)
+
+A tooltip pieChart on mouse over
+
+![Screenshot (33)](https://user-images.githubusercontent.com/74582280/167342405-dd912b7f-5b78-448a-872e-4dc8e5be9ed8.png)
+
 
 
 
