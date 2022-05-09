@@ -21,13 +21,13 @@ This is a visualization of world happiness scores from 2015 to 2021. It has the 
 World Happiness Dataset 2015-2022
 https://www.kaggle.com/datasets/mathurinache/world-happiness-report
 
-## Packages:
+## Packages
 d3, react, rechart
 
-## Development Tool:
+## Development Tool
 Visual Studio Code
 
-## To Run:
+## To Run
 npm install
 
 npm i recharts
