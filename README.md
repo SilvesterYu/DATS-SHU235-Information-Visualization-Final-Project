@@ -3,7 +3,7 @@
 
 ## Team Members
 ### by alphabetical order
-Ming Xian (mx565@nyu.edu), Silvey Yu (ly1164@nyu.edu), Mingqian Zheng (mz2392@nyu.edu) 
+Ming Xian mx565@nyu.edu, Silvey Yu ly1164@nyu.edu, Mingqian Zheng mz2392@nyu.edu
 
 ## What It Is
 This is a visualization of world happiness scores from 2015 to 2021. It has the following:
