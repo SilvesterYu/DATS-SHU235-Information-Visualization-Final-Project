@@ -278,7 +278,7 @@ function Geomap() {
     font: "18px Lucinda",
     color: "#1F0838FF"
 }}>
-        The World Happiness Report is an on-going econometrics project that surveyed people globally each year to evaluate their happiness in a scale from 0 to 10. When you hover the mouse over the countries, you will see how much different factors such as GDP, life expectancy, etc., contributed to the happiness score
+        The World Happiness Report https://worldhappiness.report/ is an on-going project that surveyed people globally each year to evaluate their happiness in a scale from 0 to 10. When you hover the mouse over the countries, you will see how much different factors such as GDP, life expectancy, etc., contributed to the happiness score
 
 
         </div>
