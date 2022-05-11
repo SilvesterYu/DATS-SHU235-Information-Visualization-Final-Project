@@ -264,9 +264,27 @@ function Geomap() {
 
   return (
     <div className="row">
-      {/* Column Left */}
+      <div style = {{
+    font: "35px Lucida Handwriting",
+    color: "#611AB0FF"
+}}>
+                        World Happiness Report 2015 - 2021      
+          </div>
+          
+          
+                  {/* Column Left */}
       <div className="column1" style={{ backgroundColor: "#fff" }}>
+        <div style = {{
+    font: "18px Lucinda",
+    color: "#1F0838FF"
+}}>
+        The World Happiness Report is an on-going econometrics project that surveyed people globally each year to evaluate their happiness in a scale from 0 to 10. When you hover the mouse over the countries, you will see how much different factors such as GDP, life expectancy, etc., contributed to the happiness score
+
+
+        </div>
+        
         <div style={{color: "red"}}>
+          
           <input
             key="slider"
             type="range"
@@ -307,6 +325,7 @@ function Geomap() {
         </div>
 
         <div>
+          
           {/* // -- adjust the width and height of the map here -- // */}
           <svg
             width={WIDTH * 0.9}
