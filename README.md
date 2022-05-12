@@ -5,7 +5,7 @@
 ### by alphabetical order
 Ming Xian mx565@nyu.edu, Silvey Yu ly1164@nyu.edu, Mingqian Zheng mz2392@nyu.edu
 
-## Try Our Webpage!
+## Go To Our Visualization Webpage
 https://hogwild.github.io/infovis2022spring/team7/index.html
 
 ## Class Project Gallery
