@@ -5,6 +5,12 @@
 ### by alphabetical order
 Ming Xian mx565@nyu.edu, Silvey Yu ly1164@nyu.edu, Mingqian Zheng mz2392@nyu.edu
 
+## Try Our Webpage!
+https://hogwild.github.io/infovis2022spring/team7/index.html
+
+## Class Project Gallery
+https://hogwild.github.io/infovis2022spring/
+
 ## What It Is
 This is a visualization of world happiness scores from 2015 to 2021. It has the following:
 
@@ -28,7 +34,7 @@ d3, react, rechart
 ## Development Tool
 Visual Studio Code
 
-## To Run
+## Run Locally
 npm install
 
 npm i recharts
