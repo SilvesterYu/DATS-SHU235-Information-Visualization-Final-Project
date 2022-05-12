@@ -5,7 +5,7 @@ This is our final project for the NYU Shanghai DATS-SHU235 Information Visualiza
 ### by alphabetical order
 Ming Xian mx565@nyu.edu, Silvey Yu ly1164@nyu.edu, Mingqian Zheng mz2392@nyu.edu
 
-## Go To Our Visualization Webpage
+## Try Our Visualization Webpage!
 https://hogwild.github.io/infovis2022spring/team7/index.html
 
 ## Class Project Gallery (NYU Shanghai InfoVis 2022 Spring)
