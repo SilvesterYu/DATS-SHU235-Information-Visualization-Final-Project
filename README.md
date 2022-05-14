@@ -47,13 +47,17 @@ Initial view
 
 <img width="869" alt="523c83ccf3c29a12665f83c9c74cf2c" src="https://user-images.githubusercontent.com/74582280/167342015-a1ea8e8e-05b8-4d6e-9b58-7007281e8d5b.png">
 
-Linked highlighting (barChart -> colorMap)
-
-![Screenshot (34)](https://user-images.githubusercontent.com/74582280/167342420-d33a8b91-b310-4fcb-978d-abc8caa49692.png)
-
 Linked highlighting of 3 charts
 
-![Screenshot (36)](https://user-images.githubusercontent.com/74582280/167342489-2a525f08-4e85-4fd4-b8d9-148bde2c265b.png)
+![Screenshot (36)](https://user-images.githubusercontent.com/74582280/168443118-eef604fb-576a-447e-9918-a0221b1bd8fa.png)
+
+Linked highlighting (barChart -> GeoMap)
+
+![bar_map](https://user-images.githubusercontent.com/74582280/168443149-4123f425-c4da-4367-ad6f-2976813145f6.png)
+
+Linked highlighting (lingChart -> GeoMap)
+
+![line_map](https://user-images.githubusercontent.com/74582280/168443171-836d895a-5910-4bae-9e29-a28e45a3f7c9.png)
 
 A tooltip pieChart on mouse over
 
