@@ -49,7 +49,7 @@ Initial view
 
 Linked highlighting of 3 charts
 
-![Screenshot (36)](https://user-images.githubusercontent.com/74582280/168443118-eef604fb-576a-447e-9918-a0221b1bd8fa.png)
+<img width="620" alt="37c6fe058e33ccf1b77a95499e1005d" src="https://user-images.githubusercontent.com/74582280/168443207-ee353048-f481-48d7-a813-8787ab000799.png">
 
 Linked highlighting (barChart -> GeoMap)
 
