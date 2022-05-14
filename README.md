@@ -59,9 +59,9 @@ Linked highlighting (lingChart -> GeoMap)
 
 ![line_map](https://user-images.githubusercontent.com/74582280/168443171-836d895a-5910-4bae-9e29-a28e45a3f7c9.png)
 
-A tooltip pieChart on mouse over
+A very beautiful tooltip on mouse over
 
-![Screenshot (33)](https://user-images.githubusercontent.com/74582280/167342405-dd912b7f-5b78-448a-872e-4dc8e5be9ed8.png)
+![Screenshot (33)](https://user-images.githubusercontent.com/74582280/168443244-0edd6b1d-5082-47e1-bc17-948515d710a8.png)
 
 
 
